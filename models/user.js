@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
     rol: { type: String, enum: ['admin', 'recepcion'], required: true},
     activo: { type: Boolean, default: true }, //para dar de baja a usuarios sin eliminarlos
     resetPasswordToken: { type: String}, //token para recuperar contraseña
-    resetPasswordExpires: { type: Date}, //expiracion del token
 
 }, {
     timestamps: true

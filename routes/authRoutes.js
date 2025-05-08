@@ -12,7 +12,6 @@ const { auth, checkRole } = require('../middleware/auth');
 
 
 
-
 //rutas publicas q no requieren autenticarse
 
 router.post('/login', loginValidator, login);
