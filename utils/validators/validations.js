@@ -1,4 +1,6 @@
 const { body } = require('express-validator');
+const Paciente = require('../../models/patient');
+const Doctor = require('../../models/doctor');
 
 //validacion para usuario
 

@@ -2,8 +2,9 @@ const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 const HttpError = require('../utils/errors/http-error');
 const Appointment = require('../models/appointment');
-const Patient = require('../models/patient');
+const Paciente = require('../models/patient');
 const Doctor = require('../models/doctor');
+const appointment = require('../models/appointment');
 
 const getAppointments = async (req, res, next) => {
     const { paciente, doctor, fecha, page = 1, limit = 10 } = req.query;
@@ -23,7 +24,7 @@ const getAppointments = async (req, res, next) => {
 
     try {
         if (paciente) {
-            const pacienteExistente = await Patient.findById(paciente);
+            const pacienteExistente = await Paciente.findById(paciente);
             if (!pacienteExistente) {
                 return next(new HttpError('Paciente no encontrado.', 404));
             }
@@ -152,14 +153,6 @@ const createAppointment = async (req, res, next) => {
     try {
         await nuevoTurno.save();
 
-        await emailService.sendConfirmationEmail({
-            email: patientObj.email,
-            name: patientObj.nombre,
-            day: fecha,
-            hour: hora,
-            doctor: doctorObj.nombre
-        });
-
         res.status(201).json({ appointment: nuevoTurno });
     } catch (err) {
         return next(new HttpError('No se pudo crear el turno.', 500));
@@ -179,7 +172,7 @@ const editAppointment = async (req, res, next) => {
 
     let turno;
     try {
-        turno = await Turno.findById(id).populate('paciente').populate('doctor');
+        turno = await Appointment.findById(id).populate('paciente').populate('doctor');
         if (!turno) {
             return next(new HttpError('Turno no encontrado.', 404));
         }
@@ -194,7 +187,7 @@ const editAppointment = async (req, res, next) => {
     sesion.startTransaction();
     try {
         // Validar que no se solape con otro turno del mismo doctor
-        const turnoExistente = await Turno.findOne({
+        const turnoExistente = await Appointment.findOne({
             doctor: idDoctor,
             fecha: nuevaFecha,
             _id: { $ne: turno._id }
@@ -213,7 +206,7 @@ const editAppointment = async (req, res, next) => {
         const finDelDia = new Date(nuevaFecha);
         finDelDia.setHours(23, 59, 59, 999);
 
-        const cantidadDelDia = await Turno.countDocuments({
+        const cantidadDelDia = await Appointment.countDocuments({
             doctor: idDoctor,
             fecha: { $gte: inicioDelDia, $lte: finDelDia },
             _id: { $ne: turno._id }

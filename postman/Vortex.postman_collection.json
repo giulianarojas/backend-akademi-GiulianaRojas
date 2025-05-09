@@ -1,0 +1,597 @@
+{
+	"info": {
+		"_postman_id": "b367dbcd-641b-4b93-ae93-159564bf283b",
+		"name": "Vortex",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44691949",
+		"_collection_link": "https://giu-2517436.postman.co/workspace/Giu's-Workspace~e7f30a3c-da01-4a4c-8110-1a830ccbe4d3/collection/44691949-b367dbcd-641b-4b93-ae93-159564bf283b?action=share&source=collection_link&creator=44691949"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@clinicavortex.com\",\r\n  \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/auth/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/auth/register",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFiN2NkYWYyZjFhZjc4MjRhNWNkYzUiLCJlbWFpbCI6ImFkbWluQGNsaW5pY2F2b3J0ZXguY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3NTUwMjYsImV4cCI6MTc0Njg0MTQyNn0.r2SVQSBpd2ujinmO8rAO9pHqb-ay4-lnOMT_mT15mE8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Giuliana\",\r\n  \"email\": \"giulirojas14@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"rol\": \"recepcion\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/auth/register",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/auth/login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"giulirojas14@gmail.com\",\r\n  \"password\": \"123456\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/auth/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				},
+				"description": "logueo con usuario que tiene rol recepcionista creado desde el administrador"
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/auth/forgot-password",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"giulirojas14@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/auth/forgot-password",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"forgot-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/auth/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFkNjQzODYzMzVkZjcwYmQ2NjI2OWIiLCJlbWFpbCI6ImdpdWxpcm9qYXMxNEBnbWFpbC5jb20iLCJhY3Rpb24iOiJwYXNzd29yZC1yZXNldCIsImlhdCI6MTc0Njc2MDE3NSwiZXhwIjoxNzQ2NzYzNzc1fQ.TPAjuD",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"password\": \"clavenueva123\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/auth/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFkNjQzODYzMzVkZjcwYmQ2NjI2OWIiLCJlbWFpbCI6ImdpdWxpcm9qYXMxNEBnbWFpbC5jb20iLCJhY3Rpb24iOiJwYXNzd29yZC1yZXNldCIsImlhdCI6MTc0Njc2MDE3NSwiZXhwIjoxNzQ2NzYzNzc1fQ.TPAjuDeGvShJohjOyBnFgqGSfNAt0gEHCRWMRX9fpyk",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"reset-password",
+						"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFkNjQzODYzMzVkZjcwYmQ2NjI2OWIiLCJlbWFpbCI6ImdpdWxpcm9qYXMxNEBnbWFpbC5jb20iLCJhY3Rpb24iOiJwYXNzd29yZC1yZXNldCIsImlhdCI6MTc0Njc2MDE3NSwiZXhwIjoxNzQ2NzYzNzc1fQ.TPAjuDeGvShJohjOyBnFgqGSfNAt0gEHCRWMRX9fpyk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/auth/login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"giulirojas14@gmail.com\",\r\n  \"password\": \"clavenueva123\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/auth/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/patients",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFiN2NkYWYyZjFhZjc4MjRhNWNkYzUiLCJlbWFpbCI6ImFkbWluQGNsaW5pY2F2b3J0ZXguY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3NTUwMjYsImV4cCI6MTc0Njg0MTQyNn0.r2SVQSBpd2ujinmO8rAO9pHqb-ay4-lnOMT_mT15mE8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pedro\",\r\n    \"apellido\": \"García\",\r\n    \"dni\": \"67890123\",\r\n    \"email\": \"pedro.garcia@gmail.com\",\r\n    \"coberturaMedica\": {\r\n      \"nombre\": \"Sancor Salud\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/patients/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"patients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/patients/id",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFiN2NkYWYyZjFhZjc4MjRhNWNkYzUiLCJlbWFpbCI6ImFkbWluQGNsaW5pY2F2b3J0ZXguY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3NTUwMjYsImV4cCI6MTc0Njg0MTQyNn0.r2SVQSBpd2ujinmO8rAO9pHqb-ay4-lnOMT_mT15mE8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pedro\",\r\n    \"apellido\": \"García\",\r\n    \"dni\": \"67890123\",\r\n    \"email\": \"pedro.garcia@gmail.com\",\r\n    \"coberturaMedica\": {\r\n      \"nombre\": \"Sancor Salud\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/patients/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"patients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/patients/681dad4442b13a757bfe1dda",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFiN2NkYWYyZjFhZjc4MjRhNWNkYzUiLCJlbWFpbCI6ImFkbWluQGNsaW5pY2F2b3J0ZXguY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3NTUwMjYsImV4cCI6MTc0Njg0MTQyNn0.r2SVQSBpd2ujinmO8rAO9pHqb-ay4-lnOMT_mT15mE8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/patients/681dad4442b13a757bfe1dda",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"patients",
+						"681dad4442b13a757bfe1dda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/patients/681daca042b13a757bfe1dc8",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				},
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFiN2NkYWYyZjFhZjc4MjRhNWNkYzUiLCJlbWFpbCI6ImFkbWluQGNsaW5pY2F2b3J0ZXguY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3NTUwMjYsImV4cCI6MTc0Njg0MTQyNn0.r2SVQSBpd2ujinmO8rAO9pHqb-ay4-lnOMT_mT15mE8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/patients/681daca042b13a757bfe1dc8",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"patients",
+						"681daca042b13a757bfe1dc8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/doctors",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFiN2NkYWYyZjFhZjc4MjRhNWNkYzUiLCJlbWFpbCI6ImFkbWluQGNsaW5pY2F2b3J0ZXguY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3NTUwMjYsImV4cCI6MTc0Njg0MTQyNn0.r2SVQSBpd2ujinmO8rAO9pHqb-ay4-lnOMT_mT15mE8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/doctors",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"doctors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/doctors?especialidad=Cardiología",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				},
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFiN2NkYWYyZjFhZjc4MjRhNWNkYzUiLCJlbWFpbCI6ImFkbWluQGNsaW5pY2F2b3J0ZXguY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3NTUwMjYsImV4cCI6MTc0Njg0MTQyNn0.r2SVQSBpd2ujinmO8rAO9pHqb-ay4-lnOMT_mT15mE8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/doctors?especialidad=Cardiología",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"doctors"
+					],
+					"query": [
+						{
+							"key": "especialidad",
+							"value": "Cardiología"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base_url}}/api/doctors?especialidad=Cardiología&page=1&limit=5",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				},
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODFiN2NkYWYyZjFhZjc4MjRhNWNkYzUiLCJlbWFpbCI6ImFkbWluQGNsaW5pY2F2b3J0ZXguY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3NTUwMjYsImV4cCI6MTc0Njg0MTQyNn0.r2SVQSBpd2ujinmO8rAO9pHqb-ay4-lnOMT_mT15mE8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/doctors?especialidad=Cardiología&page=1&limit=5",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"doctors"
+					],
+					"query": [
+						{
+							"key": "especialidad",
+							"value": "Cardiología"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
