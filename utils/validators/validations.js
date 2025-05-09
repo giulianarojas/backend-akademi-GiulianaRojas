@@ -26,7 +26,16 @@ const passwordValidator = [
   body('password').isLength({min: 6}).withMessage('La contraseña debe tener al menos 6 caracteres')
 ];
 
-
+//validacion para pacientes
+const patientValidator = [
+  body('nombre').trim().notEmpty().withMessage('El nombre es obligatorio'),
+  body('apellido').trim().notEmpty().withMessage('El apellido es obligatorio'),
+  body('dni').trim().notEmpty().withMessage('El DNI es obligatorio')
+  .isInt().withMessage('El DNI debe ser un numero')
+  .isLength({ min: 7 }).withMessage('El DNI debe tenrr al menos 7 digitos'),
+  body('email').trim().normalizeEmail().isEmail().withMessage('Debe ser un email valido'),
+  body('coberturaMedica.nombre').trim().notEmpty().withMessage('El nombre de la cobertura medica es obligatorio')
+]
 
 module.exports = { userValidator,loginValidator,
-  passwordValidator, emailValidator };
+  passwordValidator, emailValidator, patientValidator };

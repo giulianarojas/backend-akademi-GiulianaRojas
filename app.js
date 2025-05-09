@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 //rutas
 const authRoutes = require('./routes/authRoutes');
+const patientRoutes = require('./routes/patientsRoutes');
 const HttpError = require('./utils/errors/http-error');
 
 
@@ -14,6 +15,8 @@ app.use(bodyParser.json());
 
 //rutas de api
 app.use('/api/auth', authRoutes);
+app.use('/api/patients', patientRoutes);
+
 
 //middleware para rutas no encontradas
 app.use((req, res, next) => {
