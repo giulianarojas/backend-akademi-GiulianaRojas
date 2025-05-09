@@ -9,14 +9,16 @@ const HttpError = require('../utils/errors/http-error');
 
 const auth = async (req, res, next) => {
     try {
+        if (!req.headers.authorization) {
+           throw new Error("Falta el token de autorización");
+       }
        //extrae token
-       const token = req.header('Authorization').replace('Bearer', '');
+       const token = req.headers.authorization.replace('Bearer ', '');
        
        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secreto123'); //verifica token
 
        const user = await User.findOne({ 
          _id: decoded.userId,
-         'tokens.token': token,
          activo: true
        });
 
@@ -41,6 +43,10 @@ const checkRole = (roles) => {
     return (req, res, next) => {
         if(!req.user) {
             return next (new HttpError('No tienes permiso para esto', 403));
+        }
+
+        if(!roles.includes(req.user.rol)) {
+            return next(new HttpError('No tienes permiso para acceder a esto'))
         }
 
         next();

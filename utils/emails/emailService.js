@@ -1,10 +1,12 @@
+const nodemailer = require('nodemailer');
+
 //configurando transporter de correo
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER || 'pruebaclinicaa@gmail.com',
-      pass: process.env.EMAIL_PASSWORD || 'clinicavortex'
+      pass: process.env.EMAIL_PASSWORD || 'jomosbtlxwuvcqho'
     }
  });
 

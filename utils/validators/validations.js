@@ -12,7 +12,7 @@ const userValidator = [
 //para login
 
 const loginValidator = [
-  body('email').normalizeEmail().withMessage('Ingresa un email valido'),
+  body('email').isEmail().withMessage('Ingresa un email valido'),
   body('password').not().isEmpty().withMessage('La contraseña es obligatoria')
 ];
 

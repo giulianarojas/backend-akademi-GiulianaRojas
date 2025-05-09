@@ -1,8 +1,8 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const HttpError = require('../util/errors/http-error');
-const { validationResult } = require = ('express-validator');
+const HttpError = require('../utils/errors/http-error');
+const { validationResult } = require('express-validator');
 
 const emailService = require('../utils/emails/emailService');
 
@@ -19,7 +19,7 @@ const register = async (req, res, next) => {
 
   let existingUser; //me fijo si ya existe un usuario con el mismo email en la bd
   try {
-    existingUser = await user.findOne({ email });
+    existingUser = await User.findOne({ email });
   } catch (err) { 
     return next(new HttpError('Error al verificar el usuario.'));
   }
@@ -90,12 +90,21 @@ const login = async (req, res, next) => {
 
   let token;
   try {
-    token = await existingUser.generateAuthToken(jwt, process.env.JWT_SECRET || 'secreto123');
+    token = jwt.sign(
+      {
+        userId: existingUser.id,
+        email: existingUser.email,
+        rol: existingUser.rol
+      },
+      process.env.JWT_SECRET || 'secreto123',
+      { expiresIn: '1d' }
+    );
+
     res.json({
       userId: existingUser.id,
       email: existingUser.email,
       rol: existingUser.rol,
-      token: token
+      token
     });
   } catch (err) {
     return next(new HttpError('Error al generar token.', 500));

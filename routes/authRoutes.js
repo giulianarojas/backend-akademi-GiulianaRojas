@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { register, login } = require('../controllers/authController');
+const { register, login, forgotPassword, verifyResetToken,resetPassword } = require('../controllers/authController');
 
 //importo validadores 
 const { userValidator, loginValidator, passwordValidator, emailValidator} = require ('../utils/validators/validations')
 
-const { auth, checkRole } = require('../middleware/auth');
+const { auth, checkRole } = require('../middleware/auth'); 
 
 
 
@@ -32,6 +32,7 @@ router.post('/reset-password/:token', passwordValidator, resetPassword);
 router.post('/register', auth, checkRole(['admin']), userValidator, register);
 
 //listar todos los usuarios
+/*
 router.get('/users', auth, checkRole(['admin']), getAllUsers);
 
 
@@ -45,7 +46,7 @@ router.put('/users/:userId', auth, checkRole(['admin']), updateUser);
 
 //dar de baja un us
 router.patch('/users/:userId/deactivate', auth, checkRole(['admin']), deactivateUser);
-
+*/
 
 
 
