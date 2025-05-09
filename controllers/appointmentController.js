@@ -98,123 +98,72 @@ const getAppointmentById = async (req, res, next) => {
 };
 
 const createAppointment = async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-      return next(new HttpError('Datos inválidos. Verifica e intenta nuevamente.', 422));
-  }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return next(new HttpError('Datos inválidos, por favor verifique.', 422));
+    }
 
-  const { patient, doctor, date, hour, state = 'confirmed' } = req.body;
-  const inputDate = new Date(`${date}T${hour}`);
+    const { paciente, doctor, fecha, hora, estado = 'confirmado' } = req.body;
 
-  // turno duplicado mismo doctor fecha y hora
-  try {
-      const existingAppointment = await Appointment.findOne({
-          doctor,
-          date: inputDate,
-          state: 'confirmed'
-      });
+    let patientObj, doctorObj;
 
-      if (existingAppointment) {
-          return next(new HttpError('El doctor ya tiene un turno confirmado en ese día y hora.', 422));
-      }
-  } catch (err) {
-      return next(new HttpError('No se pudo verificar la disponibilidad del turno.', 500));
-  }
+    try {
+        patientObj = await Paciente.findById(paciente);
+        if (!patientObj) {
+            return next(new HttpError('Paciente no encontrado.', 404));
+        }
 
-  //limite de 10 turnos por dia para el doctor
-  try {
-      const startOfDay = new Date(inputDate);
-      startOfDay.setHours(0, 0, 0, 0);
+        doctorObj = await Doctor.findById(doctor);
+        if (!doctorObj) {
+            return next(new HttpError('Doctor no encontrado.', 404));
+        }
+    } catch (err) {
+        return next(new HttpError('Error al buscar paciente o doctor.', 500));
+    }
 
-      const endOfDay = new Date(inputDate);
-      endOfDay.setHours(23, 59, 59, 999);
+    const inputDate = new Date(`${fecha}T${hora}`);
+    const startOfDay = new Date(inputDate);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(inputDate);
+    endOfDay.setHours(23, 59, 59, 999);
 
-      const dailyCount = await Appointment.countDocuments({
-          doctor,
-          date: { $gte: startOfDay, $lte: endOfDay },
-          state: 'confirmed'
-      });
+    try {
+        const dailyCount = await Appointment.countDocuments({
+            doctor,
+            fecha: { $gte: startOfDay, $lte: endOfDay },
+            estado: 'confirmado'
+        });
 
-      if (dailyCount >= 10) {
-          return next(new HttpError('El doctor ya tiene 10 turnos confirmados ese día.', 422));
-      }
-  } catch (err) {
-      return next(new HttpError('No se pudo validar la cantidad de turnos diarios.', 500));
-  }
+        if (dailyCount >= 8) {
+            return next(new HttpError('El doctor ya tiene 8 turnos confirmados en esta fecha.', 400));
+        }
+    } catch (err) {
+        return next(new HttpError('Error al verificar la disponibilidad del doctor.', 500));
+    }
 
-  // validacion de existencia de paciente
-  let patientObj;
-  try {
-      patientObj = await Patient.findById(patient);
-      if (!patientObj) {
-          return next(new HttpError('Paciente no encontrado.', 404));
-      }
-  } catch (err) {
-      return next(new HttpError('Error al buscar al paciente.', 500));
-  }
+    const nuevoTurno = new Appointment({
+        paciente: patientObj._id,
+        doctor: doctorObj._id,
+        fecha: inputDate,
+        hora,
+        estado
+    });
 
-  // validacion de existencia y estado del doctor
-  let doctorObj;
-  try {
-      doctorObj = await Doctor.findById(doctor);
-      if (!doctorObj) {
-          return next(new HttpError('Doctor no encontrado.', 404));
-      }
-      if (doctorObj.active !== 'active') {
-          return next(new HttpError('No se puede asignar un turno a un doctor inactivo.', 400));
-      }
-  } catch (err) {
-      return next(new HttpError('Error al buscar al doctor.', 500));
-  }
+    try {
+        await nuevoTurno.save();
 
-  // crear el turno
-  const createdAppointment = new Appointment({
-      patient: patientObj._id,
-      doctor: doctorObj._id,
-      specialty: doctorObj.specialty,
-      date: inputDate,
-      state
-  });
+        await emailService.sendConfirmationEmail({
+            email: patientObj.email,
+            name: patientObj.nombre,
+            day: fecha,
+            hour: hora,
+            doctor: doctorObj.nombre
+        });
 
-  //guardar y vincular el turno con paciente y doctor conn transacción
-  const sess = await mongoose.startSession();
-  sess.startTransaction();
-  try {
-      await createdAppointment.save({ session: sess });
-
-      await Patient.updateOne(
-          { _id: patientObj._id },
-          { $push: { appointments: createdAppointment._id } },
-          { session: sess }
-      );
-
-      await Doctor.updateOne(
-          { _id: doctorObj._id },
-          { $push: { appointments: createdAppointment._id } },
-          { session: sess }
-      );
-
-      await sess.commitTransaction();
-      sess.endSession();
-  } catch (err) {
-      sess.endSession();
-      return next(new HttpError('No se pudo crear el turno. Intenta nuevamente.', 500));
-  }
-
-  //enviar mail 
-  try {
-      await emailService.sendConfirmationEmail({
-          email: patientObj.email,
-          name: patientObj.name,
-          day: date,
-          hour,
-          doctor: doctorObj.name
-      });
-  } catch (err) {
-      return next(new HttpError('No se pudo enviar el mail de confirmación.', 500));
-  }
-
-  res.status(201).json({ turno: createdAppointment.toObject({ getters: true }) });
+        res.status(201).json({ appointment: nuevoTurno });
+    } catch (err) {
+        return next(new HttpError('No se pudo crear el turno.', 500));
+    }
 };
 
 const editAppointment = async (req, res, next) => {

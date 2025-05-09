@@ -45,4 +45,4 @@ appointmentSchema.statics.verificarDisponibilidad = async function(doctorId, fec
 };
 
 
-module.exports = mongoose.model('Turno', appointmentSchema);
+module.exports = mongoose.model('appointment', appointmentSchema);
